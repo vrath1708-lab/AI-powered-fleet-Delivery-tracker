@@ -5,8 +5,14 @@ import { seedStep } from '../../database/src/state.js';
 
 dotenv.config();
 
-const port = Number(process.env.PORT ?? process.env.SOCKET_PORT ?? 5001);
+let port = Number(process.env.PORT ?? process.env.SOCKET_PORT ?? 5001);
 const host = process.env.HOST ?? '0.0.0.0';
+
+// Defensive fallback if PORT is invalid (NaN or out-of-range)
+if (!Number.isFinite(port) || port < 0 || port > 65535) {
+  console.warn(`Invalid PORT value (${process.env.PORT}); falling back to 5001`);
+  port = 5001;
+}
 const apiBase =
   process.env.API_BASE_URL ??
   process.env.SERVER_URL ??
