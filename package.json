@@ -1,0 +1,35 @@
+{
+  "name": "ai-powered-fleet-delivery-tracker",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev:client": "node scripts/run-client.mjs",
+    "dev:server": "node scripts/run-server.mjs",
+    "dev:socket": "node scripts/run-socket.mjs",
+    "dev:ai": "node scripts/run-ai.mjs",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:socket\" \"npm run dev:client\"",
+    "stop": "powershell -NoProfile -Command \"$ports = @(5000,5001,5173); $pids = Get-NetTCPConnection -LocalPort $ports -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique; if ($pids) { $pids | ForEach-Object { Stop-Process -Id $_ -Force } ; Write-Output ('Stopped PIDs: ' + ($pids -join ', ')) } else { Write-Output 'No matching listeners found.' }\"",
+    "stop:all": "powershell -NoProfile -Command \"Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force; Write-Output 'Stopped all node processes.'\"",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^9.2.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "leaflet": "^1.9.4",
+    "morgan": "^1.10.0",
+    "mongoose": "^8.18.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-leaflet": "^5.0.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "vite": "^7.1.3"
+  }
+}

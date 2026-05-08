@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FleetPulse AI favicon">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d2c9" />
+      <stop offset="100%" stop-color="#ff8c42" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#081120" />
+  <circle cx="32" cy="32" r="18" fill="none" stroke="url(#g)" stroke-width="6" />
+  <path d="M18 39l10-14 8 8 10-12" fill="none" stroke="#f5f7fb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

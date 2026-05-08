@@ -1,0 +1,277 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  color: #f5f7fb;
+  background:
+    radial-gradient(circle at top left, rgba(0, 210, 201, 0.22), transparent 26%),
+    radial-gradient(circle at top right, rgba(255, 140, 66, 0.18), transparent 24%),
+    linear-gradient(180deg, #081120 0%, #111b2f 48%, #0b1020 100%);
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.shell {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.eyebrow,
+.panel-label {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  color: #8ab4ff;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  margin-bottom: 10px;
+}
+
+.hero-copy {
+  max-width: 620px;
+  color: #c3cfeb;
+  margin-bottom: 0;
+}
+
+.hero-card,
+.panel {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 18, 35, 0.82);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+}
+
+.hero-card {
+  min-width: 220px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.hero-card strong {
+  display: block;
+  font-size: 3rem;
+  margin: 8px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(340px, 0.9fr);
+  gap: 16px;
+}
+
+.panel {
+  border-radius: 24px;
+  padding: 20px;
+}
+
+.stat-card {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-card strong {
+  font-size: 2rem;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.pill,
+.status {
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+}
+
+.pill {
+  background: rgba(99, 102, 241, 0.18);
+  color: #bdd0ff;
+}
+
+.map-panel {
+  min-height: 780px;
+}
+
+.map {
+  height: 700px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.side-column {
+  display: grid;
+  gap: 16px;
+}
+
+.ai-panel textarea {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 14px;
+  resize: vertical;
+  margin-bottom: 12px;
+}
+
+.ai-panel button {
+  width: 100%;
+  border: 0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: linear-gradient(90deg, #00d2c9, #ff8c42);
+  color: #07111f;
+  font-weight: 700;
+}
+
+.answer {
+  margin-top: 14px;
+  color: #d7e2ff;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.list-item p {
+  margin-bottom: 0;
+  color: #9eb0d5;
+}
+
+.status.picked {
+  background: rgba(0, 210, 201, 0.18);
+  color: #8ef2eb;
+}
+
+.status.out-for-delivery {
+  background: rgba(255, 140, 66, 0.18);
+  color: #ffd1b0;
+}
+
+.status.delivered {
+  background: rgba(91, 255, 171, 0.16);
+  color: #90ffbf;
+}
+
+.status.pending {
+  background: rgba(255, 255, 255, 0.1);
+  color: #dce5ff;
+}
+
+.driver-icon,
+.order-icon {
+  display: grid;
+  place-items: center;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50%;
+}
+
+.driver-icon span {
+  color: #00d2c9;
+  font-size: 1.8rem;
+}
+
+.order-icon span {
+  color: #ff8c42;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 1200px) {
+  .stats-grid,
+  .workspace {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .shell {
+    padding: 16px;
+  }
+
+  .hero,
+  .panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .map-panel {
+    min-height: 620px;
+  }
+
+  .map {
+    height: 540px;
+  }
+}
