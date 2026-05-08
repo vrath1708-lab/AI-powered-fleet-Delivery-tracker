@@ -207,7 +207,7 @@ export async function queryFleetWithAgents(query) {
     if (!intent) {
       // Return response in frontend-compatible format
       return {
-        answer: 'I can help with questions about drivers, orders, deliveries, statistics, and fleet status. Try asking: "How many orders have been delivered?", "Which drivers are active?", "What is Order #42 status?", "Find closest driver to Order #100", etc.'
+        answer: 'I can help with drivers, orders, deliveries, routes, and fleet status. Ask me about active drivers, delayed orders, delivery details, closest drivers, or fleet stats.'
       };
     }
     

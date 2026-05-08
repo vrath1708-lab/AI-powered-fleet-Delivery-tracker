@@ -1,4 +1,13 @@
 :root {
+  /* Theme tokens */
+  --accent: #00d2c9;
+  --accent-2: #8ab4ff;
+  --accent-3: #ff8c42;
+  --muted: #c9d6f1;
+  --panel-bg: rgba(10, 18, 35, 0.86);
+  --panel-border: rgba(255, 255, 255, 0.06);
+  --glass: rgba(11, 16, 32, 0.5);
+
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   color: #f5f7fb;
   background:
@@ -16,6 +25,11 @@
 
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; min-height: 100vh; }
+/* Ensure images and vector assets never overflow their containers */
+img, svg, video { max-width: 100%; height: auto; display: block; }
+/* Prevent content overflow while keeping element positions intact */
+.panel, .panel * { overflow-wrap: anywhere; word-break: break-word; }
+.shell { max-width: 1440px; margin: 0 auto; padding: 32px; }
 button, textarea { font: inherit; }
 button { cursor: pointer; }
 
@@ -25,7 +39,7 @@ button { cursor: pointer; }
 h1, h2, p { margin-top: 0; }
 h1 { font-size: clamp(2.6rem, 5vw, 4.8rem); margin-bottom: 10px; }
 .hero-copy { max-width: 620px; color: #c3cfeb; margin-bottom: 0; }
-.hero-card, .panel { border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(10, 18, 35, 0.82); backdrop-filter: blur(18px); box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28); }
+.hero-card, .panel { border: 1px solid var(--panel-border); background: var(--panel-bg); backdrop-filter: blur(18px); box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28); }
 .hero-card { min-width: 220px; padding: 20px; border-radius: 20px; }
 .hero-card strong { display: block; font-size: 3rem; margin: 8px 0; }
 .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; }
@@ -35,7 +49,9 @@ h1 { font-size: clamp(2.6rem, 5vw, 4.8rem); margin-bottom: 10px; }
 .stat-card strong { font-size: 2rem; }
 .panel-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 16px; }
 .pill, .status { border-radius: 999px; padding: 6px 12px; font-size: 0.78rem; }
-.pill { background: rgba(99, 102, 241, 0.18); color: #bdd0ff; }
+.pill { background: linear-gradient(90deg, var(--accent), var(--accent-3)); color: #04111a; }
+.pill.secondary { background: linear-gradient(90deg, var(--accent-2), rgba(138,180,255,0.12)); color: #eaf4ff; }
+.panel-label { color: var(--accent-2); }
 .map-panel { min-height: 640px; display: flex; flex-direction: column; }
 .map-legend {
   display: flex;
@@ -44,9 +60,9 @@ h1 { font-size: clamp(2.6rem, 5vw, 4.8rem); margin-bottom: 10px; }
   margin-bottom: 12px;
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(11, 16, 32, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #c9d6f1;
+  background: var(--glass);
+  border: 1px solid var(--panel-border);
+  color: var(--muted);
   font-size: 0.82rem;
 }
 .map-legend span { display: inline-flex; align-items: center; gap: 8px; }
@@ -58,6 +74,27 @@ h1 { font-size: clamp(2.6rem, 5vw, 4.8rem); margin-bottom: 10px; }
   height: 14px;
   border-radius: 999px;
 }
+.legend-vehicle {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.legend-vehicle::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08) inset;
+}
+.legend-vehicle.bike { color: #00d2c9; }
+.legend-vehicle.van { color: #8ab4ff; }
+.legend-vehicle.truck { color: #ff8c42; }
 .legend-line.live { height: 4px; background: linear-gradient(90deg, #00d2c9, #ff8c42); }
 .legend-dot.driver { background: #00d2c9; }
 .legend-dot.pickup { background: #8ab4ff; }
@@ -123,10 +160,31 @@ h1 { font-size: clamp(2.6rem, 5vw, 4.8rem); margin-bottom: 10px; }
 .status.out-for-delivery { background: rgba(255, 140, 66, 0.18); color: #ffd1b0; }
 .status.delivered { background: rgba(91, 255, 171, 0.16); color: #90ffbf; }
 .status.pending { background: rgba(255, 255, 255, 0.1); color: #dce5ff; }
-.driver-icon, .order-icon { display: grid; place-items: center; width: 18px !important; height: 18px !important; border-radius: 50%; }
-.driver-icon span { color: #00d2c9; font-size: 1.8rem; }
-.order-icon span { color: #ff8c42; font-size: 1.2rem; }
-.pickup-icon span { color: #8ab4ff; font-size: 1.4rem; }
+.vehicle-icon {
+  display: grid;
+  place-items: center;
+  width: auto !important;
+  height: auto !important;
+  background: transparent;
+  border: 0;
+}
+
+.vehicle-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
+  transition: transform 220ms cubic-bezier(.2,.9,.3,1), filter 220ms ease;
+}
+
+.vehicle-icon-bike { width: 24px !important; height: 16px !important; }
+.vehicle-icon-van { width: 44px !important; height: 28px !important; }
+.vehicle-icon-truck { width: 46px !important; height: 30px !important; }
+.vehicle-icon-pickup { width: 38px !important; height: 24px !important; }
+.vehicle-icon-order { width: 38px !important; height: 24px !important; }
+
+.vehicle-icon:hover img { transform: scale(1.08); }
 .route-start-icon,
 .route-end-icon {
   display: grid;
@@ -482,12 +540,9 @@ h1 { font-size: clamp(2.6rem, 5vw, 4.8rem); margin-bottom: 10px; }
 /* Subtle shimmer sweep on click */
 .admin-submit:active::before { transform: rotate(15deg) translateX(20%); transition-duration: 120ms; }
 
-/* Driver/order icon pop on hover (leaflet markers have these classes) */
-.driver-icon span, .order-icon span, .pickup-icon span {
-  transition: transform 220ms cubic-bezier(.2,.9,.3,1), filter 220ms ease;
-}
-.driver-icon:hover span { transform: scale(1.45); filter: drop-shadow(0 8px 18px rgba(0,210,201,0.24)); }
-.order-icon:hover span { transform: scale(1.25); filter: drop-shadow(0 8px 18px rgba(255,140,66,0.22)); }
+/* Vehicle icon pop on hover (leaflet markers have these classes) */
+.vehicle-icon img { transition: transform 220ms cubic-bezier(.2,.9,.3,1), filter 220ms ease; }
+.vehicle-icon:hover img { transform: scale(1.08); }
 
 /* Gentle floating animation for attention-grabbing elements */
 @keyframes floaty {

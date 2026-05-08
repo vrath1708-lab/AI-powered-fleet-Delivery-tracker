@@ -1,25 +1,25 @@
 # AI Powered Fleet and Delivery Tracker
 
-This project follows the internship brief with the requested structure:
+Lightweight prototype that visualizes drivers, zones, and live routes while providing a fleet-focused conversational assistant for questions about drivers, orders, deliveries, and fleet status.
 
-- `client` - React dashboard with Leaflet map and analytics widgets
-- `server` - Node + Express API for dashboard data and AI query endpoints
-- `socket` - WebSocket layer that simulates live driver and order updates
-- `ai` - MCP tool logic for fleet questions and route guidance
-- `database` - MongoDB connection, models, and seed data
+Repository layout
+- `client` — React + Vite dashboard with a Leaflet map and UI panels
+- `server` — Express HTTP API and AI query controller
+- `socket` — Socket.io service broadcasting live driver/order updates
+- `ai` — MCP-style server tooling and agentic router (Model Context Protocol)
+- `database` — in-memory state and MongoDB-ready schema/seed helpers
 
-## Run It
-
+Getting started
 1. Install Node.js 20+.
-2. Copy `.env.example` to `.env`.
+2. Copy `.env.example` to `.env` and update values if needed.
 3. Run `npm install` from the repository root.
-4. Start the full prototype:
+4. Start the prototype:
 
 ```bash
 npm run dev
 ```
 
-You can also run parts individually:
+You can run parts individually:
 
 ```bash
 npm run dev:server
@@ -28,22 +28,34 @@ npm run dev:client
 npm run dev:ai
 ```
 
-## What Works Now
+What works now
+- Live map with driver markers, delivery highlights, and route polylines
+- Real-time updates via Socket.io
+- Fleet-focused AI agent powered by an MCP tool server (no hardcoded app internals)
+- In-memory seed data with optional MongoDB connection
 
-- Live map with drivers, delivery zones, routes, and order markers
-- Real-time updates through socket.io
-- AI-style query support for closest driver, delayed orders, and route suggestions
-- MongoDB-ready schema layer with a local fallback for prototyping
+Challenges faced
+- Early AI runtime instability due to missing/pruned dependencies and incorrect MCP SDK initialization.
+- The assistant would sometimes respond with application-internal explanations (code/architecture) instead of fleet-focused answers.
+- Map marker rendering was inconsistent: too many markers were replaced with vehicle artwork and a bike image displayed at an unexpectedly large size.
 
-## Deliverables To Finish
+How we solved them
+- Restored and fixed dependency imports and corrected MCP server initialization so the tool server starts reliably.
+- Reworked the agent logic to scope responses strictly to fleet, orders, deliveries, routes, and status; removed the application-knowledge branch.
+- Replaced the large bike asset with a compact inline SVG marker, restricted which markers render as vehicles (drivers only), and tightened CSS to prevent overflow and sizing issues.
 
-- Add deployment URL
-- Add screenshot images
-- Add explanation video drive link
-- Replace the simulated data flow with full MongoDB CRUD when you are ready
+Future improvements
+- Add accessibility labels and keyboard navigation for map popups and legend items.
+- Persist live data into MongoDB and replace in-memory seed flows with real CRUD endpoints.
+- Add user authentication and driver assignment workflows.
+- Add automated visual regression tests for the map layout and marker rendering.
 
-## Notes
+Explanation video recording (drive link)
+- Replace the placeholder below with your Drive recording link:
 
-- The project avoids the npm workspace shell issue caused by the ampersand in the folder name by launching each part directly with Node.
-- If MongoDB is not configured, the app still runs with seed data so you can demo the prototype.
-I  used Llama 3.1 via Hugging Face as the AI model. Since it does not support native tool calling, i implemented a custom intent-classification and routing layer that mimics MCP behavior, allowing natural language queries to trigger backend functions.
+https://drive.google.com/file/d/REPLACE_WITH_YOUR_VIDEO_ID/view
+
+Notes on cleanup
+- Removed local `.env` from the repository to avoid leaking local secrets; `.env.example` is provided as a template.
+
+If you want, I can also produce a short annotated screencast demonstrating the updated marker legend, status normalization, and the fleet-only AI behavior.
