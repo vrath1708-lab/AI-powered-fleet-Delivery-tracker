@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev:client": "node scripts/run-client.mjs",
     "dev:server": "node scripts/run-server.mjs",
