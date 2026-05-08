@@ -2,8 +2,6 @@ import { Circle, CircleMarker, MapContainer, Marker, Polyline, Popup, TileLayer,
 import { Fragment, useEffect, useRef } from 'react';
 import L from 'leaflet';
 
-const bikeImageUrl = new URL('./re-bike.png', import.meta.url).href;
-
 function createBikeSvgDataUrl() {
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32" role="img" aria-label="bike">
