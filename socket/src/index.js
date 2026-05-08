@@ -5,8 +5,13 @@ import { seedStep } from '../../database/src/state.js';
 
 dotenv.config();
 
-const port = Number(process.env.SOCKET_PORT ?? 5001);
-const apiBase = process.env.API_BASE_URL ?? 'http://localhost:5000';
+const port = Number(process.env.PORT ?? process.env.SOCKET_PORT ?? 5001);
+const host = process.env.HOST ?? '0.0.0.0';
+const apiBase =
+  process.env.API_BASE_URL ??
+  process.env.SERVER_URL ??
+  process.env.SERVER_INTERNAL_URL ??
+  'http://localhost:5000';
 const server = http.createServer();
 
 // CORS function to allow all localhost origins in dev
@@ -72,6 +77,7 @@ setInterval(async () => {
   }
 }, 4000);
 
-server.listen(port, () => {
-  console.log(`Socket service listening on http://localhost:${port}`);
+server.listen(port, host, () => {
+  console.log(`Socket service listening on http://${host}:${port}`);
+  console.log(`Socket API base: ${apiBase}`);
 });
