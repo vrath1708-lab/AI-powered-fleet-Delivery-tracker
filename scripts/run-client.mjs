@@ -11,7 +11,7 @@ let shuttingDown = false;
 
 function start() {
   child = spawn(process.execPath, [viteBin], {
-    cwd: clientDir,
+    cwd: rootDir,
     stdio: 'inherit'
   });
 

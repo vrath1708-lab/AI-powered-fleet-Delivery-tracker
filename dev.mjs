@@ -29,7 +29,7 @@ children.push(socket);
 // Start Vite directly
 const viteBin = path.join(rootDir, 'node_modules', 'vite', 'bin', 'vite.js');
 const vite = spawn(process.execPath, [viteBin], {
-  cwd: path.join(rootDir, 'client'),
+  cwd: rootDir,
   stdio: 'inherit'
 });
 children.push(vite);
