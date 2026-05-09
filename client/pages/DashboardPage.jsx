@@ -9,8 +9,8 @@ import OrderGrid from '../components/OrderGrid.jsx';
 import DriverGrid from '../components/DriverGrid.jsx';
 import HistoryFeed from '../components/HistoryFeed.jsx';
 
-const apiBase = 'http://localhost:5000';
-const socketBase = 'http://localhost:5001';
+const apiBase = import.meta.env.VITE_API_BASE_URL ?? '';
+const socketBase = import.meta.env.VITE_SOCKET_BASE_URL ?? '';
 
 export default function DashboardPage() {
   const [dashboard, setDashboard] = useState(null);

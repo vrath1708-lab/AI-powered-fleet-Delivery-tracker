@@ -8,22 +8,31 @@ dotenv.config();
 let port = Number(process.env.PORT ?? process.env.SOCKET_PORT ?? 5001);
 const host = process.env.HOST ?? '0.0.0.0';
 
-// Defensive fallback if PORT is invalid (NaN or out-of-range)
 if (!Number.isFinite(port) || port < 0 || port > 65535) {
   console.warn(`Invalid PORT value (${process.env.PORT}); falling back to 5001`);
   port = 5001;
 }
+
 const apiBase =
   process.env.API_BASE_URL ??
   process.env.SERVER_URL ??
   process.env.SERVER_INTERNAL_URL ??
   'http://localhost:5000';
+
 const server = http.createServer();
 
-// CORS function to allow all localhost origins in dev
-const corsOrigin = process.env.CLIENT_ORIGIN === '*' 
-  ? (origin, callback) => callback(null, true)  // Allow all origins
-  : (origin, callback) => callback(null, origin === process.env.CLIENT_ORIGIN);
+function parseAllowedOrigins(value) {
+  if (!value) {
+    return [];
+  }
+
+  return value.split(',').map((origin) => origin.trim()).filter(Boolean);
+}
+
+const allowedOrigins = parseAllowedOrigins(process.env.CLIENT_ORIGIN);
+const corsOrigin = allowedOrigins.length === 0
+  ? true
+  : (origin, callback) => callback(null, !origin || allowedOrigins.includes(origin));
 
 const io = new Server(server, {
   cors: {

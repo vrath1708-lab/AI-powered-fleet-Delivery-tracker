@@ -3,8 +3,8 @@ import { io } from 'socket.io-client';
 import { Circle, MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 
-const apiBase = 'http://localhost:5000';
-const socketBase = 'http://localhost:5001';
+const apiBase = import.meta.env.VITE_API_BASE_URL ?? '';
+const socketBase = import.meta.env.VITE_SOCKET_BASE_URL ?? '';
 
 const driverIcon = new L.DivIcon({
   className: 'driver-icon',
